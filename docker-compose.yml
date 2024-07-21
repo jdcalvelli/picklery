@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: picklery
+    build:
+      context: .
+    ports:
+      - "4321"
+    environment:
+      - NODE_ENV=production
+      - GIN_MODE=release
+    networks:
+      - nginx-proxy-manager_default
+    restart: unless-stopped
+
+networks:
+  nginx-proxy-manager_default:
+    external: true

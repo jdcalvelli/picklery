@@ -2,8 +2,9 @@ package main
 
 import (
   "net/http"
+  "os"
   "path/filepath"
-    "picklery/picklery-backend/initializers"
+  "picklery/picklery-backend/initializers"
 
   "github.com/gin-contrib/static"
   "github.com/gin-gonic/gin"
@@ -36,5 +37,5 @@ func main() {
   //   ctx.File(filepath.Join("..", "picklery-frontend", "dist", "index.html"))
   // })
   
-  app.Run()
+  app.Run(":"+os.Getenv("PORT"))
 }
