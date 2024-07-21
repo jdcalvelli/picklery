@@ -8,6 +8,7 @@ server-setup:
 	@echo "Installing Node."
 	@wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-$(ARCHITECTURE).tar.xz
 	@tar -xf node-v$(NODE_VERSION)-linux-$(ARCHITECTURE).tar.xz
+	@rm -rf node-v$(NODE_VERSION)-linux-$(ARCHITECTURE).tar.xz
 	@mv node-v$(NODE_VERSION)-linux-$(ARCHITECTURE) /app/nodejs
 	@node --version
 

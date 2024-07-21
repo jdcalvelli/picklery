@@ -1,6 +1,6 @@
 FROM debian:bookworm-slim
 
-RUN apt-get update && apt-get install -y wget make xz-utils
+RUN apt-get update && apt-get install -y wget make xz-utils && apt-get clean
 
 WORKDIR /app
 

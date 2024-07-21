@@ -8,6 +8,7 @@ server-setup:
 	@echo "Installing Go."
 	@wget https://go.dev/dl/go$(GO_VERSION).linux-$(ARCHITECTURE).tar.gz
 	@tar -xzf go$(GO_VERSION).linux-$(ARCHITECTURE).tar.gz
+	@rm -rf go$(GO_VERSION).linux-$(ARCHITECTURE).tar.gz
 	@mv go /app/golang
 	@go version
 
