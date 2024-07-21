@@ -9,7 +9,7 @@ COPY . .
 ENV PATH="/app/nodejs/bin:/app/golang/bin:${PATH}"
 ENV GOROOT="/app/golang"
 
-RUN make setup
+RUN make server-setup
 RUN make init
 
 CMD ["make", "serve"]
