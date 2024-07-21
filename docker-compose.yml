@@ -6,13 +6,11 @@ services:
     build:
       context: .
     ports:
-      - "4321"
-    environment:
-      - NODE_ENV=production
-      - GIN_MODE=release
+      - ${PORT}
+    env_file: .env
+    restart: unless-stopped
     networks:
       - nginx-proxy-manager_default
-    restart: unless-stopped
 
 networks:
   nginx-proxy-manager_default:

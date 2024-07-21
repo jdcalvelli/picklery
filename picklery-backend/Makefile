@@ -1,11 +1,13 @@
 GO_VERSION := 1.22.5
+# arm64 for mac, amd64 for linux
+ARCHITECTURE := $(shell if [ "$$(uname -m)" = "arm64" ] || [ "$$(uname -m)" = "aarch64" ]; then echo "arm64"; else echo "amd64"; fi)
 
 .PHONY: setup init run
 
 setup:
 	@echo "Installing Go."
-	@wget https://go.dev/dl/go$(GO_VERSION).linux-amd64.tar.gz
-	@tar -xzf go$(GO_VERSION).linux-amd64.tar.gz
+	@wget https://go.dev/dl/go$(GO_VERSION).linux-$(ARCHITECTURE).tar.gz
+	@tar -xzf go$(GO_VERSION).linux-$(ARCHITECTURE).tar.gz
 	@mv go /app/golang
 	@go version
 
