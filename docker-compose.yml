@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   picklery:
     container_name: picklery
@@ -10,8 +8,8 @@ services:
     env_file: .env
     restart: unless-stopped
     networks:
-      - nginx-proxy-manager_default
+      - pklwrks
 
 networks:
-  nginx-proxy-manager_default:
+  pklwrks:
     external: true
