@@ -1,16 +1,6 @@
 NODE_VERSION := 20.15.1
-# arm64 for mac, x64 for linux
-ARCHITECTURE := $(shell if [ "$$(uname -m)" = "arm64" ] || [ "$$(uname -m)" = "aarch64" ]; then echo "arm64"; else echo "x64"; fi)
 
-.PHONY: server-setup init dev build
-
-server-setup:
-	@echo "Installing Node."
-	@wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-$(ARCHITECTURE).tar.xz
-	@tar -xf node-v$(NODE_VERSION)-linux-$(ARCHITECTURE).tar.xz
-	@rm -rf node-v$(NODE_VERSION)-linux-$(ARCHITECTURE).tar.xz
-	@mv node-v$(NODE_VERSION)-linux-$(ARCHITECTURE) /app/nodejs
-	@node --version
+.PHONY: init dev build
 
 init:
 	npm install

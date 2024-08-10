@@ -1,14 +1,22 @@
-FROM rust:1.79.0-slim-bullseye
-
-RUN apt-get update && apt-get install -y wget make xz-utils && apt-get clean
-
+# STAGE 1 BUILD VUE FRONTEND
+FROM node:20 as frontend-builder
 WORKDIR /app
+COPY picklery-frontend/package*.json ./
+RUN npm install
+COPY picklery-frontend .
+RUN npm run build
 
-COPY . .
+# STAGE 2 BUILD RUST BACKEND
+FROM rust:1.79.0 as backend-builder
+WORKDIR /app
+COPY picklery-backend/Cargo.toml picklery-backend/Cargo.lock ./
+COPY picklery-backend/src ./src
+RUN cargo build --release
 
-ENV PATH="/app/nodejs/bin:${PATH}"
-
-RUN make frontend.server-setup
-RUN make init
-
-CMD ["make", "serve"]
+# STAGE 3 - COMBINE
+FROM debian:bookworm-slim
+WORKDIR /app
+COPY --from=frontend-builder /app/dist ./picklery-frontend/dist
+COPY --from=backend-builder /app/target/release/picklery-backend ./picklery-backend/
+WORKDIR /app/picklery-backend
+CMD ["./picklery-backend"]
