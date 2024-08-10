@@ -1,25 +1,15 @@
-GO_VERSION := 1.22.5
-# arm64 for mac, amd64 for linux
-ARCHITECTURE := $(shell if [ "$$(uname -m)" = "arm64" ] || [ "$$(uname -m)" = "aarch64" ]; then echo "arm64"; else echo "amd64"; fi)
+RUST_VERSION := 1.79.0
 
-.PHONY: server-setup init run
-
-server-setup:
-	@echo "Installing Go."
-	@wget https://go.dev/dl/go$(GO_VERSION).linux-$(ARCHITECTURE).tar.gz
-	@tar -xzf go$(GO_VERSION).linux-$(ARCHITECTURE).tar.gz
-	@rm -rf go$(GO_VERSION).linux-$(ARCHITECTURE).tar.gz
-	@mv go /app/golang
-	@go version
+.PHONY: init start
 
 init:
-	go mod download
+	cargo build
 
-run:
-	go run main.go
-
+start:
+	cargo run
+	
 help:
-	@echo "Makefile for backend"
-	@echo "   init     - install backend package dependencies"
-	@echo "   run      - build and run backend"
-	@echo "   help     - show this help message"
+	@echo "Makefile for picklery backend"
+	@echo "    init     - install backend deps"
+	@echo "    start    - stand up backend"
+	@echo "    help     - show this help message"

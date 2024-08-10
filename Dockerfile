@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM rust:1.79.0-slim-bullseye
 
 RUN apt-get update && apt-get install -y wget make xz-utils && apt-get clean
 
@@ -6,10 +6,9 @@ WORKDIR /app
 
 COPY . .
 
-ENV PATH="/app/nodejs/bin:/app/golang/bin:${PATH}"
-ENV GOROOT="/app/golang"
+ENV PATH="/app/nodejs/bin:${PATH}"
 
-RUN make server-setup
+RUN make frontend.server-setup
 RUN make init
 
 CMD ["make", "serve"]

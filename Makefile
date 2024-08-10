@@ -1,11 +1,7 @@
 FRONTEND_DIR ?= picklery-frontend
 BACKEND_DIR ?= picklery-backend
 
-.PHONY: server-setup init serve frontend.% backend.%
-
-server-setup:
-	@make frontend.server-setup
-	@make backend.server-setup
+.PHONY: init serve frontend.% backend.%
 
 init:
 	@make frontend.init
@@ -13,7 +9,7 @@ init:
 	
 serve:
 	@make frontend.build
-	@make backend.run
+	@make backend.start
 	
 frontend.%:
 	@make -C $(FRONTEND_DIR) $*
